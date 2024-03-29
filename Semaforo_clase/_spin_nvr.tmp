@@ -1,0 +1,68 @@
+never p1 {    /* !([] (! ((Vp) && (Vs)))) */
+T0_init:
+	do
+	:: atomic { (! ((! ((Vp) && (Vs))))) -> assert(!(! ((! ((Vp) && (Vs)))))) }
+	:: (1) -> goto T0_init
+	od;
+accept_all:
+	skip
+}
+never p2 {    /* !((! ([] (<> ((nxt) && (E))))) || ([] (<> (Vp)))) */
+T0_init:
+	do
+	:: (! ((Vp)) && ((nxt) && (E))) -> goto accept_S7
+	:: (! ((Vp))) -> goto T0_S73
+	:: (((nxt) && (E))) -> goto T0_init
+	:: (1) -> goto T0_S87
+	od;
+accept_S7:
+	do
+	:: (! ((Vp)) && ((nxt) && (E))) -> goto T0_S7
+	:: (! ((Vp))) -> goto T0_S73
+	od;
+accept_S73:
+	do
+	:: (! ((Vp))) -> goto T0_S73
+	od;
+T0_S7:
+	do
+	:: (! ((Vp)) && ((nxt) && (E))) -> goto accept_S7
+	:: (! ((Vp))) -> goto T0_S73
+	od;
+T0_S73:
+	do
+	:: (! ((Vp))) -> goto T0_S73
+	:: (! ((Vp)) && ((nxt) && (E))) -> goto accept_S73
+	od;
+T0_S87:
+	do
+	:: (! ((Vp))) -> goto T0_S73
+	:: (((nxt) && (E))) -> goto T0_init
+	:: (1) -> goto T0_S87
+	:: (! ((Vp)) && ((nxt) && (E))) -> goto accept_S73
+	od;
+}
+never p3 {    /* !((! ([] (<> (nxt)))) || ([] ((! (E)) || ([] (<> (Vs)))))) */
+T0_init:
+	do
+	:: (! ((! (E))) && ! ((Vs)) && (nxt)) -> goto accept_S181
+	:: (! ((! (E))) && ! ((Vs))) -> goto T0_S181
+	:: (! ((! (E)))) -> goto T0_S195
+	:: (1) -> goto T0_init
+	od;
+accept_S181:
+	do
+	:: (! ((Vs))) -> goto T0_S181
+	od;
+T0_S181:
+	do
+	:: (! ((Vs)) && (nxt)) -> goto accept_S181
+	:: (! ((Vs))) -> goto T0_S181
+	od;
+T0_S195:
+	do
+	:: (! ((Vs)) && (nxt)) -> goto accept_S181
+	:: (! ((Vs))) -> goto T0_S181
+	:: (1) -> goto T0_S195
+	od;
+}
